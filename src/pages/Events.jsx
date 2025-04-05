@@ -42,6 +42,12 @@ const eventsData = [
   },
 ];
 
+const eventImages = [
+  "https://magazinelondon.co.uk/wp-content/uploads/2023/10/JA-MAGAZINE-BTF23-2212-2600x1500.jpg",
+  "https://blog.coupondunia.in/wp-content/uploads/2014/07/college-fest.jpg",
+  "https://cdn.bleacherreport.net/images_root/slides/photos/000/595/808/102809752_original.jpg?1293506368",
+];
+
 export default function Events() {
   const [changingWord, setChangingWord] = useState("events");
   const [showFilters, setShowFilters] = useState(false);
@@ -74,12 +80,6 @@ export default function Events() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-8 font-sans">
       <header className="flex justify-between items-center mb-12">
         <div className="flex items-center space-x-3">
-          <img
-            src="/mnt/data/image.png"
-            alt="Inivio Logo"
-            className="h-10 w-14 object-contain"
-          />
-          <h1 className="text-3xl font-bold text-blue-700">🎉 Eventify</h1>
         </div>
         <div className="space-x-4">
           <button className="hover:text-blue-600 text-sm font-medium text-gray-700">

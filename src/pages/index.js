@@ -8,6 +8,8 @@ import TempForm from "./TempForm";
 import Success from "./Success";
 import Failure from "./Failure";
 import About from "./about";
+import Feature from "./Feature";
+import Pricing from "./Pricing";
 
 const router = [
   { path: "/", component: Home },
@@ -19,6 +21,8 @@ const router = [
   { path: "/events/:eventname", component: Event },
   { path: "/events/:eventname/register", component: RegistrationForm },
   { path: "/about", component: About },
+  { path: "/features", component: Feature },
+  { path: "/pricing", component: Pricing },
 ];
 
 export default router;

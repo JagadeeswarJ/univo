@@ -18,13 +18,15 @@ const Navbar = () => {
 
           {/* Nav Links */}
           <div className="hidden md:flex gap-10 text-sm font-medium text-gray-700">
-            {["features", "events", "about", "blog", "contact"].map((path) => (
+            {["features", "events", "about", "pricing"].map((path) => (
               <NavLink
                 key={path}
                 to={`/${path}`}
                 className={({ isActive }) =>
                   `relative group transition-all duration-200 ${
-                    isActive ? "text-violet-700 font-semibold" : "hover:text-violet-700"
+                    isActive
+                      ? "text-violet-700 font-semibold"
+                      : "hover:text-violet-700"
                   }`
                 }
               >
