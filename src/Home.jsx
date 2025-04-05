@@ -1,13 +1,20 @@
 import React from "react";
-import "./Home.css"; // We'll create this file next
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import "./Home.css"; // Component-specific styles
 
-// Sample images from public domain or placeholders
 const heroImage =
   "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&w=1920&q=80";
 const eventPlaceholder =
   "https://www.hire4event.com/blogs/wp-content/uploads/2019/04/Artist-For-College-Events.jpg";
 
 function Home() {
+  const navigate = useNavigate(); // Initialize navigate function
+
+  // Handler for redirection
+  const handleJoinNow = () => {
+    navigate("/login");
+  };
+
   return (
     <main className="home-container">
       {/* HERO SECTION */}
@@ -20,7 +27,9 @@ function Home() {
           <p className="hero-subtitle">
             Discover &amp; Manage College Events with Ease
           </p>
-          <button className="btn hero-cta">Join Now</button>
+          <button className="btn hero-cta" onClick={handleJoinNow}>
+            Join Now
+          </button>
         </div>
       </section>
 
@@ -30,15 +39,21 @@ function Home() {
         <div className="features-grid">
           <div className="feature-card">
             <h3>Event Discovery</h3>
-            <p>Filter by category, date, or location to find what interests you.</p>
+            <p>
+              Filter by category, date, or location to find what interests you.
+            </p>
           </div>
           <div className="feature-card">
             <h3>Organizer Tools</h3>
-            <p>Easily create, manage, and promote your events in one place.</p>
+            <p>
+              Easily create, manage, and promote your events in one place.
+            </p>
           </div>
           <div className="feature-card">
             <h3>Gamification</h3>
-            <p>Earn badges, climb the leaderboard, and stay motivated to attend.</p>
+            <p>
+              Earn badges, climb the leaderboard, and stay motivated to attend.
+            </p>
           </div>
         </div>
       </section>
@@ -84,8 +99,12 @@ function Home() {
           Sign up or log in to discover, create, and enjoy all the campus events.
         </p>
         <div className="cta-buttons">
-          <button className="btn">Sign Up</button>
-          <button className="btn btn-outline">Log In</button>
+          <button className="btn" onClick={() => navigate("/signup")}>
+            Sign Up
+          </button>
+          <button className="btn btn-outline" onClick={() => navigate("/login")}>
+            Log In
+          </button>
         </div>
       </section>
     </main>
