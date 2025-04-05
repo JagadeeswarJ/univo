@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
-import "./Home.css"; // Component-specific styles
+import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 const heroImage =
   "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&w=1920&q=80";
@@ -8,9 +8,8 @@ const eventPlaceholder =
   "https://www.hire4event.com/blogs/wp-content/uploads/2019/04/Artist-For-College-Events.jpg";
 
 function Home() {
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
-  // Handler for redirection
   const handleJoinNow = () => {
     navigate("/login");
   };
@@ -23,7 +22,7 @@ function Home() {
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="hero-overlay">
-          <h1 className="hero-title">Welcome to Campus Connect</h1>
+          <h1 className="hero-title bg-red">Welcome to Campus Connect</h1>
           <p className="hero-subtitle">
             Discover &amp; Manage College Events with Ease
           </p>
@@ -60,49 +59,63 @@ function Home() {
 
       {/* UPCOMING EVENTS */}
       <section className="events-section">
-        <h2>Upcoming Events</h2>
-        <div className="events-grid">
-          <div className="event-card">
-            <img src={eventPlaceholder} alt="Event" />
-            <h3>Tech Innovators Meetup</h3>
-            <p>
-              Join fellow students and industry professionals to explore emerging
-              technologies and trends.
+        <h2 className="text-3xl font-semibold text-center mb-8">Upcoming Events</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6">
+          {/* Event Card 1 */}
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <img src={eventPlaceholder} alt="Event" className="rounded-md mb-4" />
+            <h3 className="text-xl font-bold text-blue-600 mb-2">Tech Innovators Meetup</h3>
+            <p className="text-gray-700 mb-4">
+              Join fellow students and industry professionals to explore emerging technologies and trends.
             </p>
-            <button className="btn event-cta">Learn More</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+              Learn More
+            </button>
           </div>
-          <div className="event-card">
-            <img src={eventPlaceholder} alt="Event" />
-            <h3>Art &amp; Culture Fest</h3>
-            <p>
-              Immerse yourself in a vibrant display of creativity, performances,
-              and artistic talent.
+
+          {/* Event Card 2 */}
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <img src={eventPlaceholder} alt="Event" className="rounded-md mb-4" />
+            <h3 className="text-xl font-bold text-blue-600 mb-2">Art &amp; Culture Fest</h3>
+            <p className="text-gray-700 mb-4">
+              Immerse yourself in a vibrant display of creativity, performances, and artistic talent.
             </p>
-            <button className="btn event-cta">Learn More</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+              Learn More
+            </button>
           </div>
-          <div className="event-card">
-            <img src={eventPlaceholder} alt="Event" />
-            <h3>Sports Tournament</h3>
-            <p>
-              Get ready for high-energy matches and showcase your athletic skills
-              on the field.
+
+          {/* Event Card 3 */}
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <img src={eventPlaceholder} alt="Event" className="rounded-md mb-4" />
+            <h3 className="text-xl font-bold text-blue-600 mb-2">Sports Tournament</h3>
+            <p className="text-gray-700 mb-4">
+              Get ready for high-energy matches and showcase your athletic skills on the field.
             </p>
-            <button className="btn event-cta">Learn More</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+              Learn More
+            </button>
           </div>
         </div>
       </section>
 
       {/* CTA SECTION */}
-      <section className="cta-section">
-        <h2>Ready to Get Started?</h2>
-        <p>
+      <section className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-12 text-center mt-10">
+        <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+        <p className="mb-8 text-lg">
           Sign up or log in to discover, create, and enjoy all the campus events.
         </p>
-        <div className="cta-buttons">
-          <button className="btn" onClick={() => navigate("/signup")}>
+        <div className="flex justify-center gap-6">
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+            onClick={() => navigate("/signup")}
+          >
             Sign Up
           </button>
-          <button className="btn btn-outline" onClick={() => navigate("/login")}>
+          <button
+            className="border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+            onClick={() => navigate("/login")}
+          >
             Log In
           </button>
         </div>
