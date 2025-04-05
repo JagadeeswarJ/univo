@@ -42,7 +42,7 @@ const eventsData = [
   },
 ];
 
-export default function Dashboard() {
+export default function Events() {
   const [changingWord, setChangingWord] = useState("events");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");

@@ -26,7 +26,7 @@ export default function AuthForm() {
         const response = await api.post("/login", formData);
         console.log("Login success:", response.data);
         localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");
+        navigate("/events"); // Redirect to events page after login
       } else {
         const response = await api.post("/register", formData);
         console.log("Signup success:", response.data);
