@@ -1,14 +1,17 @@
 // src/AuthForm.jsx
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { t } from "../components/toast";
+import { LoginContext } from "../context/LoginContext";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL || "localhost:3000",
 });
 
 export default function AuthForm() {
+  const context = useContext(LoginContext);
+
   const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -25,10 +28,14 @@ export default function AuthForm() {
     try {
       if (isLogin) {
         const response = await api.post("/login", formData);
+        context.setUser(response.data.user); // Set user in context
         t("User Login Success");
+
+        console.log(context.user);
+
         console.log("Login success:", response.data);
         localStorage.setItem("token", response.data.token);
-        navigate("/events"); // Redirect to events page after login
+        navigate("/events");
       } else {
         const response = await api.post("/register", formData);
         console.log("Signup success:", response.data);

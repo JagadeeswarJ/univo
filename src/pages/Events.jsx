@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
 
-
 const eventsData = [
   {
     title: "Hackathon 2025",
@@ -58,7 +57,6 @@ export default function Events() {
 
   const words = ["events", "people", "students", "CEO", "fun", "learning"];
   useEffect(() => {
-
     let i = 0;
     const interval = setInterval(() => {
       setChangingWord(words[i]);
@@ -80,14 +78,6 @@ export default function Events() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-8 font-sans">
       <header className="flex justify-between items-center mb-12">
         <div className="flex items-center space-x-3"></div>
-        <div className="space-x-4">
-          <button className="hover:text-blue-600 text-sm font-medium text-gray-700">
-            Pricing
-          </button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-            Login
-          </button>
-        </div>
       </header>
 
       <motion.section

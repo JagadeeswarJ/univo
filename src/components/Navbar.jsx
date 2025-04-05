@@ -1,13 +1,12 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoginContext } from "../context/LoginContext";
 import { useState, useContext } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  // const context = useContext(LoginContext);
-
-  // console.log(context);
+  const context = useContext(LoginContext);
+  console.log(context.user);
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-md">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,12 +41,14 @@ const Navbar = () => {
 
           {/* CTAs */}
           <div className="hidden md:flex gap-4 items-center">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
-            >
-              Log In
-            </button>
+            {context.user === null && (
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
+              >
+                Log In
+              </button>
+            )}
           </div>
         </div>
       </nav>
