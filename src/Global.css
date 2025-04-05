@@ -166,6 +166,11 @@
     margin-bottom: 1rem;
   }
   
+  .glow-text {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  
+  
   .cta-section p {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
@@ -174,5 +179,23 @@
   .cta-buttons {
     display: inline-flex;
     gap: 1rem;
+  }
+  
+  .glow-text {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #facc15, 0 0 20px #facc15, 0 0 30px #facc15;
+    }
+    to {
+      text-shadow: 0 0 20px #fde68a, 0 0 30px #fde68a, 0 0 40px #fde68a;
+    }
+  }
+  
+
+  html {
+    scroll-behavior: smooth;
   }
   

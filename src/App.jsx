@@ -1,16 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header"; 
-import router from "./pages"; 
+import Navbar from "./components/Navbar"; // ✅ IMPORT NAVBAR
+import router from "./pages";
 import { ToastContainer } from "react-toastify";
-      
+
 function App() {
   return (
     <Router>
-      <Header />
+      <Navbar /> {/* ✅ ADD THIS LINE */}
       <div className="pt-20">
-        {" "}
-        {/* To avoid overlap due to fixed header */}
+        {/* To avoid overlap due to sticky navbar */}
         <Routes>
           {router.map((route, index) => (
             <Route
@@ -22,7 +21,6 @@ function App() {
         </Routes>
       </div>
       <ToastContainer />
-
     </Router>
   );
 }
