@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { t } from "../components/toast";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL || "localhost:3000",
@@ -24,6 +25,7 @@ export default function AuthForm() {
     try {
       if (isLogin) {
         const response = await api.post("/login", formData);
+        t("User Login Success");
         console.log("Login success:", response.data);
         localStorage.setItem("token", response.data.token);
         navigate("/events"); // Redirect to events page after login
