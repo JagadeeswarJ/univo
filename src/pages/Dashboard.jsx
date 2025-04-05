@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { t } from "../components/toast";
 
 const eventsData = [
   {
@@ -51,6 +52,7 @@ export default function Dashboard() {
 
   const words = ["events", "people", "students", "CEO", "fun", "learning"];
   useEffect(() => {
+    t("User Login Success");
     let i = 0;
     const interval = setInterval(() => {
       setChangingWord(words[i]);
