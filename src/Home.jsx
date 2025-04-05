@@ -1,9 +1,8 @@
 import React from "react";
+import coverpg from "./assets/coverpg.jpg"; // Updated with correct path and extension
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
-const heroImage =
-  "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&w=1920&q=80";
 const eventPlaceholder =
   "https://www.hire4event.com/blogs/wp-content/uploads/2019/04/Artist-For-College-Events.jpg";
 
@@ -19,7 +18,7 @@ function Home() {
       {/* HERO SECTION */}
       <section
         className="hero-section"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${coverpg})` }} // Using local image
       >
         <div className="hero-overlay">
           <h1 className="hero-title bg-red">Welcome to Campus Connect</h1>
