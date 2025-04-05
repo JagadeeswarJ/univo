@@ -130,7 +130,7 @@ export const success = async (
 
           await registrations.doc(regId).update({
             payment_status: true,
-            payment_id,
+            payment_id :req.body.payment_id,
           });
           // Optional: Send mail notification if needed
           await transporter(
