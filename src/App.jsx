@@ -1,13 +1,26 @@
-import './App.css'
 import React from "react";
-import Home from "./Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header"; 
+import router from "./pages"; 
 
 function App() {
   return (
-    <div>
-      {/* You could add a global navbar here if desired */}
-      <Home />
-    </div>
+    <Router>
+      <Header />
+      <div className="pt-20">
+        {" "}
+        {/* To avoid overlap due to fixed header */}
+        <Routes>
+          {router.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={<route.component />}
+            />
+          ))}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
