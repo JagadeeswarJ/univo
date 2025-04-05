@@ -89,7 +89,7 @@ export const success = async (
   res: Response
 ): Promise<void> => {
   const { order_id, payment_id, payment_signature } = req.body;
-
+  console.log(order_id, payment_id, payment_signature);
   if (!order_id || !payment_id || !payment_signature) {
     res.status(400).json({
       status: false,
@@ -130,7 +130,7 @@ export const success = async (
 
           await registrations.doc(regId).update({
             payment_status: true,
-            payment_id :req.body.payment_id,
+            payment_id: req.body.payment_id,
           });
           // Optional: Send mail notification if needed
           await transporter(
