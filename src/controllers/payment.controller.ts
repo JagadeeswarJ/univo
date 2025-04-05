@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../config/db.config";
 import { razorpay } from "../config/razorpay.config";
-import { transporter } from "../config/nodemailer.config"
+import { mailer } from "../services/mailer.service";
 import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils";
 
 interface PaymentRegisterBody {
@@ -85,10 +85,10 @@ export const register = async (
 };
 
 export const success = async (
-  req: Request<{}, {}, PaymentSuccessBody>,
+  req: Request,
   res: Response
 ): Promise<void> => {
-  const { order_id, payment_id, payment_signature } = req.body;
+  const { order_id, payment_id, payment_signature, userId } = req.body;
   console.log(order_id, payment_id, payment_signature);
   if (!order_id || !payment_id || !payment_signature) {
     res.status(400).json({
@@ -115,7 +115,6 @@ export const success = async (
 
       try {
         const snapshot = await registrations.where("order_id", "==", order_id).get();
-
         if (snapshot.empty) {
           res.status(404).json({
             status: false,
@@ -123,7 +122,6 @@ export const success = async (
           });
         }
         else {
-
           const doc = snapshot.docs[0];
           const regId = doc.id;
           const registrationData = doc.data();
@@ -132,11 +130,11 @@ export const success = async (
             payment_status: true,
             payment_id: req.body.payment_id,
           });
-          // Optional: Send mail notification if needed
-          await transporter(
-            "jagadeeswar079@gmail.com",
+          // const userData = await db.collection("users").where("userId", "==", userId).get();
+          await mailer(
+            "sparkscj110@gmail.com",
             payment_id,
-            "Participant",
+            "Jagadeeswar",
             registrationData.amount
           );
           res.status(200).json({
