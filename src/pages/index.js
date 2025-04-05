@@ -7,7 +7,7 @@ import { path } from "framer-motion/client";
 import TempForm from "./TempForm";
 import Success from "./Success";
 import Failure from "./Failure";
-import About from "./about";
+import About from "./About";
 import Feature from "./Feature";
 import Pricing from "./Pricing";
 
