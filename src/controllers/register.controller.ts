@@ -12,7 +12,7 @@ export const submitRegistrationForm = async (
 ): Promise<void> => {
   try {
     const { username, password } = req.body;
-
+    const userId = Math.floor(Math.random() * 90000) + 10000;
     const docRef = collection.doc(username);
     const docSnapshot = await docRef.get();
 
@@ -26,6 +26,7 @@ export const submitRegistrationForm = async (
 
       const data = {
         ...req.body,
+        userId: userId,
         password: hashedPassword,
         createdAt: new Date().toISOString(),
       };

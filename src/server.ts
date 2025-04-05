@@ -4,6 +4,8 @@ import { env } from "./config/env";
 import registerRoute from "./routes/register.route";
 import loginRoute from "./routes/login.route";
 import EventRoute from "./routes/Event.route";
+// import PaymentRoute from "./routes/PaymentRoute.route";
+
 const app = express();
 
 app.use(cors());
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/event",EventRoute);
+// app.use("/payment",PaymentRoute);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ success: false, message: err.message });
