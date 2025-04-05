@@ -1,6 +1,9 @@
 import Home from "./Home";
 import AuthForm from "./AuthForm";
 import Events from "./Events";
+import Event from "./Event";
+import RegistrationForm from "./RegistrationForm";
+import { path } from "framer-motion/client";
 import TempForm from "./TempForm";
 import Success from "./Success";
 import Failure from "./Failure";
@@ -12,6 +15,8 @@ const router = [
   { path: "/form", component: TempForm },
   { path: "/success", component: Success },
   { path: "/failure", component: Failure },
+  { path: "/events/:eventname", component: Event },
+  { path: "/events/:eventname/register", component: RegistrationForm },
 ];
 
 export default router;
