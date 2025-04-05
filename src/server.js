@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Basic test route
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello, deployment test!");
 });
 
