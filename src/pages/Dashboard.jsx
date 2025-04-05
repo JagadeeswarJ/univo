@@ -41,7 +41,7 @@ const eventsData = [
   },
 ];
 
-export default function EventLandingPage() {
+export default function Dashboard() {
   const [changingWord, setChangingWord] = useState("events");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -80,8 +80,12 @@ export default function EventLandingPage() {
           <h1 className="text-3xl font-bold text-blue-700">🎉 Eventify</h1>
         </div>
         <div className="space-x-4">
-          <button className="hover:text-blue-600 text-sm font-medium text-gray-700">Pricing</button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">Login</button>
+          <button className="hover:text-blue-600 text-sm font-medium text-gray-700">
+            Pricing
+          </button>
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+            Login
+          </button>
         </div>
       </header>
 
@@ -92,10 +96,18 @@ export default function EventLandingPage() {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-5xl font-extrabold mb-4">
-          Find <span className="text-blue-600 transition-opacity duration-300" id="changingWord">{changingWord}</span> near you
+          Find{" "}
+          <span
+            className="text-blue-600 transition-opacity duration-300"
+            id="changingWord"
+          >
+            {changingWord}
+          </span>{" "}
+          near you
         </h2>
         <p className="text-gray-600 mb-6 text-lg">
-          Discover workshops, hackathons, meetups, and fests happening around your campus.
+          Discover workshops, hackathons, meetups, and fests happening around
+          your campus.
         </p>
         <button
           className="px-8 py-3 text-lg bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 text-white rounded-full shadow-md"
@@ -160,12 +172,16 @@ export default function EventLandingPage() {
                 className="w-full h-44 object-cover transition-transform duration-300 hover:scale-105"
               />
               <div className="p-5">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{event.title}</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {event.title}
+                </h3>
                 <p className="text-gray-600 flex items-center mb-1">
-                  <MapPinIcon className="w-4 h-4 mr-2 text-blue-500" /> {event.location}
+                  <MapPinIcon className="w-4 h-4 mr-2 text-blue-500" />{" "}
+                  {event.location}
                 </p>
                 <p className="text-gray-600 flex items-center">
-                  <CalendarIcon className="w-4 h-4 mr-2 text-blue-500" /> {event.date}
+                  <CalendarIcon className="w-4 h-4 mr-2 text-blue-500" />{" "}
+                  {event.date}
                 </p>
               </div>
             </motion.div>
