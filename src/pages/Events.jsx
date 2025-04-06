@@ -353,6 +353,9 @@ export default function EventLandingPage() {
                 className="overflow-hidden rounded-2xl shadow-lg bg-white"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 200 }}
+                onClick={() =>
+                  navigate(`/events/${event.title}`, { state: { event } })
+                }
               >
                 <img
                   src={event.image || eventImages[index % eventImages.length]}
@@ -374,7 +377,7 @@ export default function EventLandingPage() {
                   </p>
                   <p className="text-gray-600 flex items-center">
                     <CalendarIcon className="w-4 h-4 mr-2 text-blue-500" />
-                    {event.date}
+                    {event.startTime ? event.startTime.slice(0, 10) : ""}
                   </p>
                 </div>
               </motion.div>
