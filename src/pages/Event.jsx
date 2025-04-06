@@ -36,7 +36,7 @@ const Event = () => {
   )}&output=embed`;
 
   useEffect(() => {
-    console.log(context.user)
+    console.log(context.user);
     const fetchEventData = async () => {
       try {
         // Mock data - replace with actual API call
@@ -221,7 +221,7 @@ const Event = () => {
       {/* Event Header - Mobile First */}
       <div className="mb-6 sm:mb-8">
         <img
-          src={event.image || eventImages[eventImages[0]]}
+          src={event.image || eventImages[0]}
           alt={event.title}
           className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-lg shadow-md"
         />
@@ -363,7 +363,7 @@ const Event = () => {
                 <div>
                   <h3 className="font-semibold text-sm sm:text-base">Cost</h3>
                   <p className="text-gray-700 text-sm sm:text-base">
-                    {event.cost === "free" ? "Free" : `$${event.cost}`}
+                    {event.cost === "free" ? "Free" : `${event.cost}`}
                   </p>
                 </div>
 

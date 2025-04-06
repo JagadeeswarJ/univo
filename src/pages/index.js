@@ -25,6 +25,7 @@ const router = [
   { path: "/about", component: About },
   { path: "/features", component: Feature },
   { path: "/pricing", component: Pricing },
+  { path: "/orgdsh", component: OrganizerDashboard },
 ];
 
 export default router;
