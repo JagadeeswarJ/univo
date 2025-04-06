@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import router from "./pages";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
+import OrganizerDashboard from "./pages/OrganizerDashboard";
 
 function App() {
   return (

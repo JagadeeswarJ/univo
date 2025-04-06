@@ -28,11 +28,11 @@ export default function AuthForm() {
     try {
       if (isLogin) {
         const response = await api.post("/login", formData);
-        context.setUser(response.data.user); // Set user in context
+        console.log(response.data);
+        // context.setUser(user); // Set user in context
         t("User Login Success");
-
+        context.setUser(response.data.user); // Set user in context
         console.log(context.user);
-
         console.log("Login success:", response.data);
         localStorage.setItem("token", response.data.token);
         navigate("/events");

@@ -10,6 +10,8 @@ import Failure from "./Failure";
 import About from "./About";
 import Feature from "./Feature";
 import Pricing from "./Pricing";
+import CreateAnPage from "./EventCalender";
+import OrganizerDashboard from "./OrganizerDashboard";
 import Test from "./Test";
 
 const router = [
@@ -24,7 +26,8 @@ const router = [
   { path: "/about", component: About },
   { path: "/features", component: Feature },
   { path: "/pricing", component: Pricing },
-  { path: "/test", component: Test },
+  { path: "/orgdsh", component: OrganizerDashboard },
+  { path: "/studsh", component: Test },
 ];
 
 export default router;
