@@ -11,7 +11,6 @@ export const submitLoginForm = async (req: Request, res: Response): Promise<void
     try {
         const { username, password } = req.body;
 
-        // Fetch user by username
         const docRef = collection.doc(username);
         const docSnapshot = await docRef.get();
 
@@ -31,7 +30,6 @@ export const submitLoginForm = async (req: Request, res: Response): Promise<void
             return;
         }
 
-        // Compare passwords
         const isPasswordValid = await bcrypt.compare(password, userData.password);
 
         if (!isPasswordValid) {
@@ -42,7 +40,6 @@ export const submitLoginForm = async (req: Request, res: Response): Promise<void
             return;
         }
 
-        // Generate JWT
         const token = jwt.sign(
             {
                 username: userData.username,
