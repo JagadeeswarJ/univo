@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
+import { LoginContext } from "../context/LoginContext";
+
 
 // Detailed mock organizer profile
 const organizerProfile = {
@@ -9,7 +11,7 @@ const organizerProfile = {
   email: "rajesh.kumar@vnrvjiet.in",
   phone: "+91 9876543210",
   bio: "Faculty coordinator for technical events with 10+ years of experience organizing national-level symposiums and hackathons.",
-  profileImage: "https://randomuser.me/api/portraits/men/75.jpg",
+  profileImage: "../assets/team4.jpg",
   socialLinks: {
     linkedin: "https://linkedin.com/in/rajesh-kumar",
     twitter: "https://twitter.com/prof_rajesh",
@@ -347,6 +349,7 @@ const OrganizerDashboard = () => {
       marginRight: '10px'
     }
   };
+    const context = useContext(LoginContext);
 
   return (
     <div style={styles.dashboard}>
@@ -358,7 +361,7 @@ const OrganizerDashboard = () => {
           style={styles.profileImage}
         />
         <div style={styles.profileInfo}>
-          <h1>{organizerProfile.name}</h1>
+          <h1>{context.user?.username}</h1>
           <p>{organizerProfile.position}, {organizerProfile.department}</p>
           <p>{organizerProfile.organization}</p>
           <div style={styles.socialLinks}>
@@ -368,7 +371,7 @@ const OrganizerDashboard = () => {
           </div>
         </div>
         <div>
-          <p>Email: {organizerProfile.email}</p>
+          <p>Email: {context.user?.username}@gmail.com</p>
           <p>Phone: {organizerProfile.phone}</p>
         </div>
       </div>

@@ -51,22 +51,31 @@ const Navbar = () => {
             )}
             {context.user?.role === "organizer" && (
               <button
-                onClick={() => navigate("/orgdsh")}
+                onClick={() => navigate("/event/orgdsh")}
                 className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
               >
                 Organize
               </button>
             )}
-            {context.user !== null &&
-            <button
-              onClick={() => {
-                navigate("/");
-                window.location.reload()}}
-              className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
-            >
-              Sign out
-            </button>
-            }
+            {context.user?.role !== "organizer" && context.user !== null && (
+              <button
+                onClick={() => navigate("/event/studsh")}
+                className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
+              >
+                My Dashboard
+              </button>
+            )}
+            {context.user !== null && (
+              <button
+                onClick={() => {
+                  navigate("/");
+                  window.location.reload();
+                }}
+                className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
+              >
+                Sign out
+              </button>
+            )}
           </div>
         </div>
       </nav>
