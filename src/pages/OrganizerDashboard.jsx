@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
 import profile from "../assets/team4.jpg";
+import {useForm} from "react-hook-form";
+import axios from "axios";
 
 // Detailed mock organizer profile
 const organizerProfile = {
@@ -175,6 +177,11 @@ const mockEvents = [
 ];
 
 const OrganizerDashboard = () => {
+
+
+
+
+  const { register, handleSubmit, reset } = useForm();
   const [events, setEvents] = useState(mockEvents);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -191,6 +198,72 @@ const OrganizerDashboard = () => {
     prizes: "",
     contactPerson: "",
   });
+  const server_url = import.meta.env.VITE_BACKEND_URL;
+  const handleCreateEvent = async (formData) => {
+    try {
+      // Map the frontend form fields to the backend API expected fields
+      const newEventData = {
+        title: formData.title,
+        category: formData.category,
+        eventTags: [], // You can add this field to your form if needed
+        startTime: formData.startTime,
+        endTime: formData.endTime,
+        eventDescription: formData.description, // Note the field name change
+        eventOutcomes: "", // Add this field to your form or leave empty
+        organizedBy: organizerProfile.name, // Use the organizer's name
+        cost: formData.registrationFee,
+        location: formData.location,
+        participantLimit: Number(formData.participantLimit),
+        organizerId: context.user?.id || "default-organizer-id", // Make sure you have this from context
+        createdId: Date.now().toString(),
+        points: 0, // Default value or add to your form
+      };
+      
+      // Use the correct endpoint URL
+      const response = await axios.post("http://localhost:3000/event/create", newEventData);
+      
+      if (response.data && response.data.success) {
+        // Add the newly created event to the state
+        setEvents([...events, response.data.data]);
+        
+        // Close the form and reset values
+        setShowForm(false);
+        setNewEvent({
+          title: "",
+          category: "Technical",
+          type: "Workshop",
+          startTime: "",
+          endTime: "",
+          description: "",
+          participantLimit: 50,
+          location: "",
+          registrationFee: "Free",
+          prizes: "",
+          contactPerson: "",
+        });
+        reset();
+      } else {
+        console.error("Error in response:", response.data);
+        alert("Failed to create event. Please check the form data.");
+      }
+    } catch (error) {
+      console.error("Error creating event:", error);
+      
+      // Better error handling with specific messages
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        
+        if (error.response.status === 400) {
+          alert("Missing required fields: " + (error.response.data.message || ""));
+        } else {
+          alert("Server error: " + (error.response.data.message || "Unknown error"));
+        }
+      } else {
+        alert("Network error. Please check your connection.");
+      }
+    }
+  };
   const [activeTab, setActiveTab] = useState("events");
 
   const formatDate = (dateString) => {
@@ -209,29 +282,7 @@ const OrganizerDashboard = () => {
     setNewEvent((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCreateEvent = () => {
-    const event = {
-      ...newEvent,
-      id: Date.now().toString(),
-      participants: [],
-      status: "upcoming",
-    };
-    setEvents([...events, event]);
-    setShowForm(false);
-    setNewEvent({
-      title: "",
-      category: "Technical",
-      type: "Workshop",
-      startTime: "",
-      endTime: "",
-      description: "",
-      participantLimit: 50,
-      location: "",
-      registrationFee: "Free",
-      prizes: "",
-      contactPerson: "",
-    });
-  };
+
 
   // Styles
   const styles = {
@@ -443,7 +494,7 @@ const OrganizerDashboard = () => {
         <div style={styles.statCard}>
           <h3>Total Participants</h3>
           <div style={styles.statValue}>
-            {events.reduce((sum, event) => sum + event.participants.length, 0)}
+            {events.reduce((sum, event) => sum + ((event.participants && event.participants.length) || 0), 0)}
           </div>
         </div>
       </div>
@@ -504,15 +555,15 @@ const OrganizerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {events.map((event) => (
-                <tr key={event.id}>
+              {events.map((event,index) => (
+                <tr key={index}>
                   <td style={styles.td}>{event.title}</td>
                   <td style={styles.td}>{event.type}</td>
                   <td style={styles.td}>
                     {formatDate(event.startTime)} - {formatDate(event.endTime)}
                   </td>
                   <td style={styles.td}>
-                    {event.participants.length}/{event.participantLimit}
+                    {event.participants ? event.participants.length : 0}/{event.participantLimit}
                   </td>
                   <td style={styles.td}>
                     <span
@@ -526,8 +577,8 @@ const OrganizerDashboard = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {event.status.charAt(0).toUpperCase() +
-                        event.status.slice(1)}
+                      {event.status ? event.status.charAt(0).toUpperCase() +
+                        event.status.slice(1) : ''}
                     </span>
                   </td>
                   <td style={styles.td}>
@@ -545,7 +596,6 @@ const OrganizerDashboard = () => {
         </div>
       )}
 
-      {/* Profile Tab */}
       {activeTab === "profile" && (
         <div style={styles.card}>
           <h2>Profile Information</h2>
@@ -592,170 +642,136 @@ const OrganizerDashboard = () => {
 
           <h3 style={{ marginTop: "30px" }}>Social Links</h3>
           <div style={{ display: "flex", gap: "15px", marginTop: "10px" }}>
-            <a
-              href={organizerProfile.socialLinks.linkedin}
-              style={styles.button}
-            >
+            <a href={organizerProfile.socialLinks.linkedin} style={styles.button}>
               LinkedIn
             </a>
-            <a
-              href={organizerProfile.socialLinks.twitter}
-              style={styles.button}
-            >
+            <a href={organizerProfile.socialLinks.twitter} style={styles.button}>
               Twitter
             </a>
-            <a
-              href={organizerProfile.socialLinks.website}
-              style={styles.button}
-            >
+            <a href={organizerProfile.socialLinks.website} style={styles.button}>
               Website
             </a>
           </div>
         </div>
       )}
 
-      {/* Create Event Form */}
-      {showForm && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modalContent}>
-            <h2>Create New Event</h2>
+{/* Create Event Form using react-hook-form */}
+{showForm && (
+  <div style={styles.modalOverlay}>
+    <div style={styles.modalContent}>
+      <h2>Create New Event</h2>
+      <form onSubmit={handleSubmit(handleCreateEvent)}>
+        <input
+          type="text"
+          placeholder="Event Title *"
+          {...register("title", { required: true })}
+          style={styles.formInput}
+        />
+
+        <select {...register("category")} style={styles.formSelect}>
+          <option value="Technical">Technical</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Professional">Professional</option>
+          <option value="Coding">Coding</option>
+        </select>
+
+        <select {...register("type")} style={styles.formSelect}>
+          <option value="Workshop">Workshop</option>
+          <option value="Conference">Conference</option>
+          <option value="Competition">Competition</option>
+          <option value="Festival">Festival</option>
+          <option value="Exhibition">Exhibition</option>
+        </select>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ flex: 1 }}>
+            <label>Start Time *</label>
             <input
-              type="text"
-              name="title"
-              placeholder="Event Title"
-              value={newEvent.title}
-              onChange={handleInputChange}
-              style={styles.formInput}
-              required
-            />
-
-            <select
-              name="category"
-              value={newEvent.category}
-              onChange={handleInputChange}
-              style={styles.formSelect}
-            >
-              <option value="Technical">Technical</option>
-              <option value="Cultural">Cultural</option>
-              <option value="Workshop">Workshop</option>
-              <option value="Professional">Professional</option>
-              <option value="Coding">Coding</option>
-            </select>
-
-            <select
-              name="type"
-              value={newEvent.type}
-              onChange={handleInputChange}
-              style={styles.formSelect}
-            >
-              <option value="Workshop">Workshop</option>
-              <option value="Conference">Conference</option>
-              <option value="Competition">Competition</option>
-              <option value="Festival">Festival</option>
-              <option value="Exhibition">Exhibition</option>
-            </select>
-
-            <div style={{ display: "flex", gap: "10px" }}>
-              <div style={{ flex: 1 }}>
-                <label>Start Time</label>
-                <input
-                  type="datetime-local"
-                  name="startTime"
-                  value={newEvent.startTime}
-                  onChange={handleInputChange}
-                  style={styles.formInput}
-                  required
-                />
-              </div>
-              <div style={{ flex: 1 }}>
-                <label>End Time</label>
-                <input
-                  type="datetime-local"
-                  name="endTime"
-                  value={newEvent.endTime}
-                  onChange={handleInputChange}
-                  style={styles.formInput}
-                  required
-                />
-              </div>
-            </div>
-
-            <textarea
-              name="description"
-              placeholder="Event Description"
-              value={newEvent.description}
-              onChange={handleInputChange}
-              style={{ ...styles.formInput, minHeight: "100px" }}
-              required
-            />
-
-            <input
-              type="text"
-              name="location"
-              placeholder="Location/Venue"
-              value={newEvent.location}
-              onChange={handleInputChange}
-              style={styles.formInput}
-              required
-            />
-
-            <input
-              type="number"
-              name="participantLimit"
-              placeholder="Participant Limit"
-              value={newEvent.participantLimit}
-              onChange={handleInputChange}
-              style={styles.formInput}
-              min="1"
-              required
-            />
-
-            <input
-              type="text"
-              name="registrationFee"
-              placeholder="Registration Fee"
-              value={newEvent.registrationFee}
-              onChange={handleInputChange}
+              type="datetime-local"
+              {...register("startTime", { required: true })}
               style={styles.formInput}
             />
-
+          </div>
+          <div style={{ flex: 1 }}>
+            <label>End Time *</label>
             <input
-              type="text"
-              name="prizes"
-              placeholder="Prizes/Awards"
-              value={newEvent.prizes}
-              onChange={handleInputChange}
+              type="datetime-local"
+              {...register("endTime", { required: true })}
               style={styles.formInput}
             />
-
-            <input
-              type="text"
-              name="contactPerson"
-              placeholder="Contact Person Details"
-              value={newEvent.contactPerson}
-              onChange={handleInputChange}
-              style={styles.formInput}
-            />
-
-            <div style={{ marginTop: "20px", textAlign: "right" }}>
-              <button
-                style={{ ...styles.button, backgroundColor: "#e74c3c" }}
-                onClick={() => setShowForm(false)}
-              >
-                Cancel
-              </button>
-              <button
-                style={{ ...styles.button, backgroundColor: "#2ecc71" }}
-                onClick={handleCreateEvent}
-              >
-                Create Event
-              </button>
-            </div>
           </div>
         </div>
-      )}
 
-      {/* Event Details Modal */}
+        <textarea
+          placeholder="Event Description *"
+          {...register("description", { required: true })}
+          style={{ ...styles.formInput, minHeight: "100px" }}
+        />
+        
+        <textarea
+          placeholder="Event Outcomes (What participants will learn/gain)"
+          {...register("eventOutcomes")}
+          style={{ ...styles.formInput, minHeight: "80px" }}
+        />
+
+        <input
+          type="text"
+          placeholder="Location/Venue *"
+          {...register("location", { required: true })}
+          style={styles.formInput}
+        />
+
+        <input
+          type="number"
+          placeholder="Participant Limit"
+          {...register("participantLimit", { min: 1 })}
+          style={styles.formInput}
+        />
+
+        <input
+          type="text"
+          placeholder="Registration Fee"
+          {...register("registrationFee")}
+          style={styles.formInput}
+        />
+
+        <input
+          type="text"
+          placeholder="Prizes/Awards"
+          {...register("prizes")}
+          style={styles.formInput}
+        />
+
+        <input
+          type="text"
+          placeholder="Contact Person Details"
+          {...register("contactPerson")}
+          style={styles.formInput}
+        />
+
+        <div style={{ marginTop: "20px", textAlign: "right" }}>
+          <button
+            type="button"
+            style={{ ...styles.button, backgroundColor: "#e74c3c" }}
+            onClick={() => {
+              reset();
+              setShowForm(false);
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            style={{ ...styles.button, backgroundColor: "#2ecc71" }}
+          >
+            Create Event
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
       {selectedEvent && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
