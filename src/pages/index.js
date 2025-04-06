@@ -25,7 +25,7 @@ const router = [
   { path: "/events/:eventname/register", component: RegistrationForm },
   { path: "/about", component: About },
   { path: "/features", component: Feature },
-  { path: "/calen", component: CreateAnPage },
+  { path: "/calendar", component: CreateAnPage },
   { path: "/pricing", component: Pricing },
   { path: "/event/orgdsh", component: OrganizerDashboard },
   { path: "/event/studsh", component: Test },

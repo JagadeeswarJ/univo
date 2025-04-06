@@ -21,7 +21,7 @@ const Navbar = () => {
 
           {/* Nav Links */}
           <div className="hidden md:flex gap-10 text-sm font-medium text-gray-700">
-            {["features", "events", "about", "pricing"].map((path) => (
+            {["features", "events", "about", "pricing","calendar"].map((path) => (
               <NavLink
                 key={path}
                 to={`/${path}`}
