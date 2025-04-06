@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
 import { useState, useContext } from "react";
+import logo from "../assets/logo.jpg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Navbar = () => {
             className="text-3xl font-extrabold tracking-tight text-violet-700 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => navigate("/")}
           >
-            UNIVO
+            <img src = {logo} className="w-36"></img>
           </div>
 
           {/* Nav Links */}
