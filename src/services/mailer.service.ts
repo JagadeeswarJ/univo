@@ -9,7 +9,7 @@ export async function mailer(
   await transporter.sendMail({
     from: '"UNIVO Events" <no-reply@univo.in>',
     to: receiver_email,
-    subject: "Your payment to UNIVO Sports Fest is confirmed!",
+    subject: "Your payment to UNIVO Technologies is confirmed!",
     html: `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,18 +76,18 @@ export async function mailer(
 <body>
   <div class="container">
     <div class="header">
-      <h1>Payment Confirmed – UNIVO Sports Fest</h1>
+      <h1>Payment Confirmed – UNIVO Event Registration</h1>
     </div>
     <div class="content">
       <p>Dear <span class="highlight">${name}</span>,</p>
-      <p>Thank you for registering for the <strong>UNIVO Sports Fest</strong>!</p>
+      <p>Thank you for registering for the <strong>UNIVO Event Registration</strong>!</p>
       <p>Your payment has been successfully received. Please find your transaction details below:</p>
       <p><strong>🧾 Payment ID:</strong> <span class="highlight">${payment_id}</span></p>
       <p><strong>💰 Amount Paid:</strong> <span class="highlight">₹${amount}</span></p>
       <p>We’re thrilled to have you with us. Stay tuned for more updates on our official website: <a href="https://www.univo.in" target="_blank">univo.in</a></p>
     </div>
     <div class="footer">
-      &copy; 2024 UNIVO Sports Fest. All Rights Reserved.
+      &copy; 2024 UNIVO Event Registration. All Rights Reserved.
     </div>
   </div>
 </body>
