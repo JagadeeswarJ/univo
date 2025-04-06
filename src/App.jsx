@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header"; 
-import router from "./pages"; 
+import Header from "./components/Header";
+import router from "./pages";
 import { ToastContainer } from "react-toastify";
-      
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <Router>
-      <Header />
-      <div className="pt-20">
+      <Navbar />
+      <div>
         {" "}
-        {/* To avoid overlap due to fixed header */}
         <Routes>
           {router.map((route, index) => (
             <Route
@@ -22,7 +22,6 @@ function App() {
         </Routes>
       </div>
       <ToastContainer />
-
     </Router>
   );
 }

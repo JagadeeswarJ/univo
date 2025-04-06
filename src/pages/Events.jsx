@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { CalendarIcon, MapPinIcon, XIcon, ChevronDownIcon, UserIcon, CodeIcon, MusicIcon, ActivityIcon } from "lucide-react";
-import logo from "../assets/logo.png"; 
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { t } from "../components/toast";
 
 const allEvents = [
   {
@@ -48,6 +48,12 @@ const allEvents = [
   },
 ];
 
+const eventImages = [
+  "https://magazinelondon.co.uk/wp-content/uploads/2023/10/JA-MAGAZINE-BTF23-2212-2600x1500.jpg",
+  "https://blog.coupondunia.in/wp-content/uploads/2014/07/college-fest.jpg",
+  "https://cdn.bleacherreport.net/images_root/slides/photos/000/595/808/102809752_original.jpg?1293506368",
+];
+
 export default function EventLandingPage() {
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -66,6 +72,8 @@ export default function EventLandingPage() {
   const browseDropdownRef = useRef(null);
 
   useEffect(() => {
+    t("User Login Success");
+    let i = 0;
     const interval = setInterval(() => {
       setFade(true);
       setTimeout(() => {
@@ -160,74 +168,20 @@ export default function EventLandingPage() {
       {/* Header */}
       <header className="flex justify-between items-center mb-12">
         <div className="flex items-center space-x-3">
-          <img src={logo} alt="Inivio Logo" className="h-12 w-auto object-contain" />
+          <img
+            src="/mnt/data/image.png"
+            alt="Inivio Logo"
+            className="h-10 w-14 object-contain"
+          />
+          <h1 className="text-3xl font-bold text-blue-700">🎉 Eventify</h1>
         </div>
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={handleAIRecommender}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-          >
-            AI Event Recommender
+        <div className="space-x-4">
+          <button className="hover:text-blue-600 text-sm font-medium text-gray-700">
+            Pricing
           </button>
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-          >
-            {showFilters ? "Hide Filters" : "Add Event"}
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+            Login
           </button>
-          
-          {/* User Profile with Dropdown */}
-          <div className="relative" ref={profileDropdownRef}>
-            <button 
-              onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-              className="flex items-center space-x-2"
-            >
-              <div className="h-10 w-10 rounded-full bg-blue-100 overflow-hidden border-2 border-blue-300 flex items-center justify-center">
-                {/* Use a placeholder for now - this would be replaced with an actual image */}
-                <img 
-                  src="/api/placeholder/200/200" 
-                  alt="User profile" 
-                  className="h-full w-full object-cover"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = ""; // Clear src on error
-                    e.target.parentNode.innerHTML = '<UserIcon className="h-6 w-6 text-blue-500" />';
-                  }}
-                />
-              </div>
-              <ChevronDownIcon className={`h-4 w-4 text-gray-600 transition-transform ${showProfileDropdown ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {/* Dropdown Menu */}
-            <AnimatePresence>
-              {showProfileDropdown && (
-                <motion.div 
-                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 py-1"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="border-b border-gray-100 pb-2">
-                    <p className="px-4 py-2 text-sm font-medium text-gray-700">John Doe</p>
-                    <p className="px-4 py-1 text-xs text-gray-500">john.doe@example.com</p>
-                  </div>
-                  <button 
-                    onClick={handleDashboardClick}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50"
-                  >
-                    Dashboard
-                  </button>
-                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
-                    Profile Settings
-                  </button>
-                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
-                    Sign Out
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
         </div>
       </header>
 
