@@ -12,7 +12,6 @@ import Feature from "./Feature";
 import Pricing from "./Pricing";
 import CreateAnPage from "./EventCalender";
 
-
 const router = [
   { path: "/", component: Home },
   { path: "/login", component: AuthForm },
@@ -25,9 +24,8 @@ const router = [
   { path: "/about", component: About },
   { path: "/features", component: Feature },
   { path: "/pricing", component: Pricing },
-  {path:"/orgdet",component:CreateAnPage}
+  { path: "/orgdet", component: CreateAnPage },
   // Lazy load the Emoji component
-
 ];
 
 export default router;
