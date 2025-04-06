@@ -1,6 +1,6 @@
-import React, { useState ,useContext} from 'react';
+import React, { useState, useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
-
+import profile from "../assets/team4.jpg";
 
 // Detailed mock organizer profile
 const organizerProfile = {
@@ -11,17 +11,17 @@ const organizerProfile = {
   email: "rajesh.kumar@vnrvjiet.in",
   phone: "+91 9876543210",
   bio: "Faculty coordinator for technical events with 10+ years of experience organizing national-level symposiums and hackathons.",
-  profileImage: "../assets/team4.jpg",
+  profileImage: "../../assets/team4.jpg",
   socialLinks: {
     linkedin: "https://linkedin.com/in/rajesh-kumar",
     twitter: "https://twitter.com/prof_rajesh",
-    website: "https://cse.vnrvjiet.ac.in/faculty"
+    website: "https://cse.vnrvjiet.ac.in/faculty",
   },
   stats: {
     yearsActive: 5,
     totalEvents: 27,
-    upcomingEvents: 3
-  }
+    upcomingEvents: 3,
+  },
 };
 
 // 5 detailed mock events
@@ -33,21 +33,28 @@ const mockEvents = [
     type: "Conference",
     startTime: "2024-11-15T09:00:00Z",
     endTime: "2024-11-16T17:00:00Z",
-    description: "Annual technical symposium featuring workshops, paper presentations, and coding competitions with industry experts.",
+    description:
+      "Annual technical symposium featuring workshops, paper presentations, and coding competitions with industry experts.",
     participantLimit: 200,
-    participants: Array(85).fill().map((_, i) => ({
-      id: `p${i}`,
-      name: `Participant ${i+1}`,
-      email: `participant${i+1}@email.com`,
-      department: ["CSE", "ECE", "EEE", "MECH"][Math.floor(Math.random() * 4)],
-      year: Math.floor(Math.random() * 4) + 1,
-      registeredAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
-    })),
+    participants: Array(85)
+      .fill()
+      .map((_, i) => ({
+        id: `p${i}`,
+        name: `Participant ${i + 1}`,
+        email: `participant${i + 1}@email.com`,
+        department: ["CSE", "ECE", "EEE", "MECH"][
+          Math.floor(Math.random() * 4)
+        ],
+        year: Math.floor(Math.random() * 4) + 1,
+        registeredAt: new Date(
+          Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      })),
     location: "College Main Auditorium",
     status: "upcoming",
     registrationFee: "Free",
     prizes: "₹50,000 in prizes",
-    contactPerson: "Prof. Smitha (9898989898)"
+    contactPerson: "Prof. Smitha (9898989898)",
   },
   {
     id: "2",
@@ -56,21 +63,26 @@ const mockEvents = [
     type: "Competition",
     startTime: "2024-09-20T10:00:00Z",
     endTime: "2024-09-21T18:00:00Z",
-    description: "24-hour coding competition to solve real-world problems using innovative tech solutions.",
+    description:
+      "24-hour coding competition to solve real-world problems using innovative tech solutions.",
     participantLimit: 50,
-    participants: Array(42).fill().map((_, i) => ({
-      id: `h${i}`,
-      name: `Hacker ${i+1}`,
-      email: `hacker${i+1}@email.com`,
-      department: ["CSE", "ECE"][Math.floor(Math.random() * 2)],
-      year: Math.floor(Math.random() * 4) + 1,
-      registeredAt: new Date(Date.now() - Math.random() * 15 * 24 * 60 * 60 * 1000).toISOString()
-    })),
+    participants: Array(42)
+      .fill()
+      .map((_, i) => ({
+        id: `h${i}`,
+        name: `Hacker ${i + 1}`,
+        email: `hacker${i + 1}@email.com`,
+        department: ["CSE", "ECE"][Math.floor(Math.random() * 2)],
+        year: Math.floor(Math.random() * 4) + 1,
+        registeredAt: new Date(
+          Date.now() - Math.random() * 15 * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      })),
     location: "Computer Lab 3",
     status: "upcoming",
     registrationFee: "₹200 per team",
     prizes: "₹30,000 + Internship opportunities",
-    contactPerson: "Dr. Gupta (9876543210)"
+    contactPerson: "Dr. Gupta (9876543210)",
   },
   {
     id: "3",
@@ -79,21 +91,28 @@ const mockEvents = [
     type: "Festival",
     startTime: "2023-12-05T10:00:00Z",
     endTime: "2023-12-07T22:00:00Z",
-    description: "Annual cultural festival showcasing dance, music, drama and art competitions.",
+    description:
+      "Annual cultural festival showcasing dance, music, drama and art competitions.",
     participantLimit: 300,
-    participants: Array(156).fill().map((_, i) => ({
-      id: `c${i}`,
-      name: `Performer ${i+1}`,
-      email: `performer${i+1}@email.com`,
-      department: ["CSE", "ECE", "EEE", "MECH", "CIVIL"][Math.floor(Math.random() * 5)],
-      year: Math.floor(Math.random() * 4) + 1,
-      registeredAt: new Date(Date.now() - Math.random() * 60 * 24 * 60 * 60 * 1000).toISOString()
-    })),
+    participants: Array(156)
+      .fill()
+      .map((_, i) => ({
+        id: `c${i}`,
+        name: `Performer ${i + 1}`,
+        email: `performer${i + 1}@email.com`,
+        department: ["CSE", "ECE", "EEE", "MECH", "CIVIL"][
+          Math.floor(Math.random() * 5)
+        ],
+        year: Math.floor(Math.random() * 4) + 1,
+        registeredAt: new Date(
+          Date.now() - Math.random() * 60 * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      })),
     location: "Open Air Theater",
     status: "completed",
     registrationFee: "Free",
     prizes: "Trophies and certificates",
-    contactPerson: "Prof. Reddy (9898767654)"
+    contactPerson: "Prof. Reddy (9898767654)",
   },
   {
     id: "4",
@@ -102,21 +121,26 @@ const mockEvents = [
     type: "Workshop",
     startTime: "2024-10-10T14:00:00Z",
     endTime: "2024-10-12T16:00:00Z",
-    description: "Hands-on workshop covering robotics fundamentals with Arduino and Raspberry Pi.",
+    description:
+      "Hands-on workshop covering robotics fundamentals with Arduino and Raspberry Pi.",
     participantLimit: 30,
-    participants: Array(28).fill().map((_, i) => ({
-      id: `r${i}`,
-      name: `Robotics Enthusiast ${i+1}`,
-      email: `robotics${i+1}@email.com`,
-      department: ["CSE", "ECE", "MECH"][Math.floor(Math.random() * 3)],
-      year: Math.floor(Math.random() * 4) + 1,
-      registeredAt: new Date(Date.now() - Math.random() * 10 * 24 * 60 * 60 * 1000).toISOString()
-    })),
+    participants: Array(28)
+      .fill()
+      .map((_, i) => ({
+        id: `r${i}`,
+        name: `Robotics Enthusiast ${i + 1}`,
+        email: `robotics${i + 1}@email.com`,
+        department: ["CSE", "ECE", "MECH"][Math.floor(Math.random() * 3)],
+        year: Math.floor(Math.random() * 4) + 1,
+        registeredAt: new Date(
+          Date.now() - Math.random() * 10 * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      })),
     location: "Engineering Block Room 205",
     status: "upcoming",
     registrationFee: "₹500 (includes kit)",
     prizes: "Certification",
-    contactPerson: "Dr. Sharma (9876543211)"
+    contactPerson: "Dr. Sharma (9876543211)",
   },
   {
     id: "5",
@@ -125,22 +149,29 @@ const mockEvents = [
     type: "Exhibition",
     startTime: "2023-08-25T09:00:00Z",
     endTime: "2023-08-25T17:00:00Z",
-    description: "Opportunity to meet with top employers from IT, Core and other industries.",
+    description:
+      "Opportunity to meet with top employers from IT, Core and other industries.",
     participantLimit: 500,
-    participants: Array(387).fill().map((_, i) => ({
-      id: `cf${i}`,
-      name: `Student ${i+1}`,
-      email: `student${i+1}@email.com`,
-      department: ["CSE", "ECE", "EEE", "MECH", "CIVIL"][Math.floor(Math.random() * 5)],
-      year: Math.floor(Math.random() * 4) + 1,
-      registeredAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString()
-    })),
+    participants: Array(387)
+      .fill()
+      .map((_, i) => ({
+        id: `cf${i}`,
+        name: `Student ${i + 1}`,
+        email: `student${i + 1}@email.com`,
+        department: ["CSE", "ECE", "EEE", "MECH", "CIVIL"][
+          Math.floor(Math.random() * 5)
+        ],
+        year: Math.floor(Math.random() * 4) + 1,
+        registeredAt: new Date(
+          Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000
+        ).toISOString(),
+      })),
     location: "College Sports Complex",
     status: "completed",
     registrationFee: "Free",
     prizes: "Job offers",
-    contactPerson: "Placement Office"
-  }
+    contactPerson: "Placement Office",
+  },
 ];
 
 const OrganizerDashboard = () => {
@@ -148,34 +179,34 @@ const OrganizerDashboard = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [newEvent, setNewEvent] = useState({
-    title: '',
-    category: 'Technical',
-    type: 'Workshop',
-    startTime: '',
-    endTime: '',
-    description: '',
+    title: "",
+    category: "Technical",
+    type: "Workshop",
+    startTime: "",
+    endTime: "",
+    description: "",
     participantLimit: 50,
-    location: '',
-    registrationFee: 'Free',
-    prizes: '',
-    contactPerson: ''
+    location: "",
+    registrationFee: "Free",
+    prizes: "",
+    contactPerson: "",
   });
-  const [activeTab, setActiveTab] = useState('events');
+  const [activeTab, setActiveTab] = useState("events");
 
   const formatDate = (dateString) => {
-    const options = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewEvent(prev => ({ ...prev, [name]: value }));
+    setNewEvent((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCreateEvent = () => {
@@ -183,191 +214,204 @@ const OrganizerDashboard = () => {
       ...newEvent,
       id: Date.now().toString(),
       participants: [],
-      status: "upcoming"
+      status: "upcoming",
     };
     setEvents([...events, event]);
     setShowForm(false);
     setNewEvent({
-      title: '',
-      category: 'Technical',
-      type: 'Workshop',
-      startTime: '',
-      endTime: '',
-      description: '',
+      title: "",
+      category: "Technical",
+      type: "Workshop",
+      startTime: "",
+      endTime: "",
+      description: "",
       participantLimit: 50,
-      location: '',
-      registrationFee: 'Free',
-      prizes: '',
-      contactPerson: ''
+      location: "",
+      registrationFee: "Free",
+      prizes: "",
+      contactPerson: "",
     });
   };
 
   // Styles
   const styles = {
     dashboard: {
-      fontFamily: 'Arial, sans-serif',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '20px',
-      backgroundColor: '#f5f7fa'
+      fontFamily: "Arial, sans-serif",
+      maxWidth: "1200px",
+      margin: "0 auto",
+      padding: "20px",
+      backgroundColor: "#f5f7fa",
     },
     header: {
-      backgroundColor: '#2c3e50',
-      color: 'white',
-      padding: '20px',
-      borderRadius: '8px',
-      marginBottom: '20px',
-      display: 'flex',
-      alignItems: 'center'
+      backgroundColor: "#2c3e50",
+      color: "white",
+      padding: "20px",
+      borderRadius: "8px",
+      marginBottom: "20px",
+      display: "flex",
+      alignItems: "center",
     },
     profileImage: {
-      width: '100px',
-      height: '100px',
-      borderRadius: '50%',
-      marginRight: '20px',
-      objectFit: 'cover',
-      border: '3px solid white'
+      width: "100px",
+      height: "100px",
+      borderRadius: "50%",
+      marginRight: "20px",
+      objectFit: "cover",
+      border: "3px solid white",
     },
     profileInfo: {
-      flex: 1
+      flex: 1,
     },
     socialLinks: {
-      display: 'flex',
-      gap: '10px',
-      marginTop: '10px'
+      display: "flex",
+      gap: "10px",
+      marginTop: "10px",
     },
     socialLink: {
-      color: 'white',
-      textDecoration: 'none',
-      fontSize: '14px'
+      color: "white",
+      textDecoration: "none",
+      fontSize: "14px",
     },
     tabs: {
-      display: 'flex',
-      marginBottom: '20px',
-      borderBottom: '1px solid #ddd'
+      display: "flex",
+      marginBottom: "20px",
+      borderBottom: "1px solid #ddd",
     },
     tab: {
-      padding: '10px 20px',
-      cursor: 'pointer',
-      borderBottom: activeTab === 'events' ? '3px solid #3498db' : 'none'
+      padding: "10px 20px",
+      cursor: "pointer",
+      borderBottom: activeTab === "events" ? "3px solid #3498db" : "none",
     },
     card: {
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      padding: '20px',
-      marginBottom: '20px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      backgroundColor: "white",
+      borderRadius: "8px",
+      padding: "20px",
+      marginBottom: "20px",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
     },
     statsContainer: {
-      display: 'flex',
-      gap: '20px',
-      marginBottom: '20px',
-      flexWrap: 'wrap'
+      display: "flex",
+      gap: "20px",
+      marginBottom: "20px",
+      flexWrap: "wrap",
     },
     statCard: {
       flex: 1,
-      minWidth: '200px',
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      padding: '15px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      textAlign: 'center'
+      minWidth: "200px",
+      backgroundColor: "white",
+      borderRadius: "8px",
+      padding: "15px",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+      textAlign: "center",
     },
     statValue: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#2c3e50',
-      margin: '10px 0'
+      fontSize: "24px",
+      fontWeight: "bold",
+      color: "#2c3e50",
+      margin: "10px 0",
     },
     table: {
-      width: '100%',
-      borderCollapse: 'collapse',
-      marginTop: '20px'
+      width: "100%",
+      borderCollapse: "collapse",
+      marginTop: "20px",
     },
     th: {
-      backgroundColor: '#f8f9fa',
-      padding: '12px',
-      textAlign: 'left',
-      borderBottom: '1px solid #ddd'
+      backgroundColor: "#f8f9fa",
+      padding: "12px",
+      textAlign: "left",
+      borderBottom: "1px solid #ddd",
     },
     td: {
-      padding: '12px',
-      borderBottom: '1px solid #ddd'
+      padding: "12px",
+      borderBottom: "1px solid #ddd",
     },
     button: {
-      backgroundColor: '#3498db',
-      color: 'white',
-      border: 'none',
-      padding: '8px 12px',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      marginRight: '5px',
-      fontSize: '14px'
+      backgroundColor: "#3498db",
+      color: "white",
+      border: "none",
+      padding: "8px 12px",
+      borderRadius: "4px",
+      cursor: "pointer",
+      marginRight: "5px",
+      fontSize: "14px",
     },
     modalOverlay: {
-      position: 'fixed',
+      position: "fixed",
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000
+      backgroundColor: "rgba(0,0,0,0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
     },
     modalContent: {
-      backgroundColor: 'white',
-      padding: '20px',
-      borderRadius: '8px',
-      width: '80%',
-      maxWidth: '800px',
-      maxHeight: '80vh',
-      overflow: 'auto'
+      backgroundColor: "white",
+      padding: "20px",
+      borderRadius: "8px",
+      width: "80%",
+      maxWidth: "800px",
+      maxHeight: "80vh",
+      overflow: "auto",
     },
     formInput: {
-      width: '100%',
-      padding: '10px',
-      margin: '10px 0',
-      borderRadius: '4px',
-      border: '1px solid #ddd',
-      boxSizing: 'border-box'
+      width: "100%",
+      padding: "10px",
+      margin: "10px 0",
+      borderRadius: "4px",
+      border: "1px solid #ddd",
+      boxSizing: "border-box",
     },
     formSelect: {
-      width: '100%',
-      padding: '10px',
-      margin: '10px 0',
-      borderRadius: '4px',
-      border: '1px solid #ddd',
-      backgroundColor: 'white'
+      width: "100%",
+      padding: "10px",
+      margin: "10px 0",
+      borderRadius: "4px",
+      border: "1px solid #ddd",
+      backgroundColor: "white",
     },
     eventDetail: {
-      marginBottom: '15px'
+      marginBottom: "15px",
     },
     detailLabel: {
-      fontWeight: 'bold',
-      marginRight: '10px'
-    }
+      fontWeight: "bold",
+      marginRight: "10px",
+    },
   };
-    const context = useContext(LoginContext);
+  const context = useContext(LoginContext);
 
   return (
     <div style={styles.dashboard}>
       {/* Profile Header */}
       <div style={styles.header}>
-        <img 
-          src={organizerProfile.profileImage} 
-          alt="Profile" 
-          style={styles.profileImage}
-        />
+        <img src={profile} alt="Profile" style={styles.profileImage} />
         <div style={styles.profileInfo}>
           <h1>{context.user?.username}</h1>
-          <p>{organizerProfile.position}, {organizerProfile.department}</p>
+          <p>
+            {organizerProfile.position}, {organizerProfile.department}
+          </p>
           <p>{organizerProfile.organization}</p>
           <div style={styles.socialLinks}>
-            <a href={organizerProfile.socialLinks.linkedin} style={styles.socialLink}>LinkedIn</a>
-            <a href={organizerProfile.socialLinks.twitter} style={styles.socialLink}>Twitter</a>
-            <a href={organizerProfile.socialLinks.website} style={styles.socialLink}>Website</a>
+            <a
+              href={organizerProfile.socialLinks.linkedin}
+              style={styles.socialLink}
+            >
+              LinkedIn
+            </a>
+            <a
+              href={organizerProfile.socialLinks.twitter}
+              style={styles.socialLink}
+            >
+              Twitter
+            </a>
+            <a
+              href={organizerProfile.socialLinks.website}
+              style={styles.socialLink}
+            >
+              Website
+            </a>
           </div>
         </div>
         <div>
@@ -380,15 +424,21 @@ const OrganizerDashboard = () => {
       <div style={styles.statsContainer}>
         <div style={styles.statCard}>
           <h3>Years Active</h3>
-          <div style={styles.statValue}>{organizerProfile.stats.yearsActive}</div>
+          <div style={styles.statValue}>
+            {organizerProfile.stats.yearsActive}
+          </div>
         </div>
         <div style={styles.statCard}>
           <h3>Total Events</h3>
-          <div style={styles.statValue}>{organizerProfile.stats.totalEvents}</div>
+          <div style={styles.statValue}>
+            {organizerProfile.stats.totalEvents}
+          </div>
         </div>
         <div style={styles.statCard}>
           <h3>Upcoming Events</h3>
-          <div style={styles.statValue}>{organizerProfile.stats.upcomingEvents}</div>
+          <div style={styles.statValue}>
+            {organizerProfile.stats.upcomingEvents}
+          </div>
         </div>
         <div style={styles.statCard}>
           <h3>Total Participants</h3>
@@ -400,35 +450,42 @@ const OrganizerDashboard = () => {
 
       {/* Tabs */}
       <div style={styles.tabs}>
-        <div 
-          style={{ 
-            ...styles.tab, 
-            borderBottom: activeTab === 'events' ? '3px solid #3498db' : 'none',
-            color: activeTab === 'events' ? '#3498db' : '#7f8c8d'
+        <div
+          style={{
+            ...styles.tab,
+            borderBottom: activeTab === "events" ? "3px solid #3498db" : "none",
+            color: activeTab === "events" ? "#3498db" : "#7f8c8d",
           }}
-          onClick={() => setActiveTab('events')}
+          onClick={() => setActiveTab("events")}
         >
           My Events
         </div>
-        <div 
-          style={{ 
-            ...styles.tab, 
-            borderBottom: activeTab === 'profile' ? '3px solid #3498db' : 'none',
-            color: activeTab === 'profile' ? '#3498db' : '#7f8c8d'
+        <div
+          style={{
+            ...styles.tab,
+            borderBottom:
+              activeTab === "profile" ? "3px solid #3498db" : "none",
+            color: activeTab === "profile" ? "#3498db" : "#7f8c8d",
           }}
-          onClick={() => setActiveTab('profile')}
+          onClick={() => setActiveTab("profile")}
         >
           Profile
         </div>
       </div>
 
       {/* Events Tab */}
-      {activeTab === 'events' && (
+      {activeTab === "events" && (
         <div style={styles.card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <h2>Your Events</h2>
-            <button 
-              style={{ ...styles.button, backgroundColor: '#2ecc71' }}
+            <button
+              style={{ ...styles.button, backgroundColor: "#2ecc71" }}
               onClick={() => setShowForm(true)}
             >
               Create New Event
@@ -447,7 +504,7 @@ const OrganizerDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {events.map(event => (
+              {events.map((event) => (
                 <tr key={event.id}>
                   <td style={styles.td}>{event.title}</td>
                   <td style={styles.td}>{event.type}</td>
@@ -458,17 +515,24 @@ const OrganizerDashboard = () => {
                     {event.participants.length}/{event.participantLimit}
                   </td>
                   <td style={styles.td}>
-                    <span style={{
-                      color: event.status === 'upcoming' ? '#3498db' : 
-                            event.status === 'completed' ? '#7f8c8d' : '#2ecc71',
-                      fontWeight: 'bold'
-                    }}>
-                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                    <span
+                      style={{
+                        color:
+                          event.status === "upcoming"
+                            ? "#3498db"
+                            : event.status === "completed"
+                            ? "#7f8c8d"
+                            : "#2ecc71",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {event.status.charAt(0).toUpperCase() +
+                        event.status.slice(1)}
                     </span>
                   </td>
                   <td style={styles.td}>
-                    <button 
-                      style={{ ...styles.button, backgroundColor: '#3498db' }}
+                    <button
+                      style={{ ...styles.button, backgroundColor: "#3498db" }}
                       onClick={() => setSelectedEvent(event)}
                     >
                       View Details
@@ -482,11 +546,11 @@ const OrganizerDashboard = () => {
       )}
 
       {/* Profile Tab */}
-      {activeTab === 'profile' && (
+      {activeTab === "profile" && (
         <div style={styles.card}>
           <h2>Profile Information</h2>
-          
-          <div style={{ display: 'flex', gap: '30px', marginTop: '20px' }}>
+
+          <div style={{ display: "flex", gap: "30px", marginTop: "20px" }}>
             <div style={{ flex: 1 }}>
               <div style={styles.eventDetail}>
                 <span style={styles.detailLabel}>Name:</span>
@@ -505,7 +569,7 @@ const OrganizerDashboard = () => {
                 <span>{organizerProfile.organization}</span>
               </div>
             </div>
-            
+
             <div style={{ flex: 1 }}>
               <div style={styles.eventDetail}>
                 <span style={styles.detailLabel}>Email:</span>
@@ -525,16 +589,25 @@ const OrganizerDashboard = () => {
               </div>
             </div>
           </div>
-          
-          <h3 style={{ marginTop: '30px' }}>Social Links</h3>
-          <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
-            <a href={organizerProfile.socialLinks.linkedin} style={styles.button}>
+
+          <h3 style={{ marginTop: "30px" }}>Social Links</h3>
+          <div style={{ display: "flex", gap: "15px", marginTop: "10px" }}>
+            <a
+              href={organizerProfile.socialLinks.linkedin}
+              style={styles.button}
+            >
               LinkedIn
             </a>
-            <a href={organizerProfile.socialLinks.twitter} style={styles.button}>
+            <a
+              href={organizerProfile.socialLinks.twitter}
+              style={styles.button}
+            >
               Twitter
             </a>
-            <a href={organizerProfile.socialLinks.website} style={styles.button}>
+            <a
+              href={organizerProfile.socialLinks.website}
+              style={styles.button}
+            >
               Website
             </a>
           </div>
@@ -555,7 +628,7 @@ const OrganizerDashboard = () => {
               style={styles.formInput}
               required
             />
-            
+
             <select
               name="category"
               value={newEvent.category}
@@ -568,7 +641,7 @@ const OrganizerDashboard = () => {
               <option value="Professional">Professional</option>
               <option value="Coding">Coding</option>
             </select>
-            
+
             <select
               name="type"
               value={newEvent.type}
@@ -581,8 +654,8 @@ const OrganizerDashboard = () => {
               <option value="Festival">Festival</option>
               <option value="Exhibition">Exhibition</option>
             </select>
-            
-            <div style={{ display: 'flex', gap: '10px' }}>
+
+            <div style={{ display: "flex", gap: "10px" }}>
               <div style={{ flex: 1 }}>
                 <label>Start Time</label>
                 <input
@@ -606,16 +679,16 @@ const OrganizerDashboard = () => {
                 />
               </div>
             </div>
-            
+
             <textarea
               name="description"
               placeholder="Event Description"
               value={newEvent.description}
               onChange={handleInputChange}
-              style={{ ...styles.formInput, minHeight: '100px' }}
+              style={{ ...styles.formInput, minHeight: "100px" }}
               required
             />
-            
+
             <input
               type="text"
               name="location"
@@ -625,7 +698,7 @@ const OrganizerDashboard = () => {
               style={styles.formInput}
               required
             />
-            
+
             <input
               type="number"
               name="participantLimit"
@@ -636,7 +709,7 @@ const OrganizerDashboard = () => {
               min="1"
               required
             />
-            
+
             <input
               type="text"
               name="registrationFee"
@@ -645,7 +718,7 @@ const OrganizerDashboard = () => {
               onChange={handleInputChange}
               style={styles.formInput}
             />
-            
+
             <input
               type="text"
               name="prizes"
@@ -654,7 +727,7 @@ const OrganizerDashboard = () => {
               onChange={handleInputChange}
               style={styles.formInput}
             />
-            
+
             <input
               type="text"
               name="contactPerson"
@@ -663,16 +736,16 @@ const OrganizerDashboard = () => {
               onChange={handleInputChange}
               style={styles.formInput}
             />
-            
-            <div style={{ marginTop: '20px', textAlign: 'right' }}>
-              <button 
-                style={{ ...styles.button, backgroundColor: '#e74c3c' }}
+
+            <div style={{ marginTop: "20px", textAlign: "right" }}>
+              <button
+                style={{ ...styles.button, backgroundColor: "#e74c3c" }}
                 onClick={() => setShowForm(false)}
               >
                 Cancel
               </button>
-              <button 
-                style={{ ...styles.button, backgroundColor: '#2ecc71' }}
+              <button
+                style={{ ...styles.button, backgroundColor: "#2ecc71" }}
                 onClick={handleCreateEvent}
               >
                 Create Event
@@ -687,16 +760,17 @@ const OrganizerDashboard = () => {
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>
             <h2>{selectedEvent.title}</h2>
-            <p style={{ color: '#7f8c8d', marginBottom: '20px' }}>
+            <p style={{ color: "#7f8c8d", marginBottom: "20px" }}>
               {selectedEvent.category} • {selectedEvent.type}
             </p>
-            
-            <div style={{ display: 'flex', gap: '30px', marginBottom: '20px' }}>
+
+            <div style={{ display: "flex", gap: "30px", marginBottom: "20px" }}>
               <div style={{ flex: 1 }}>
                 <div style={styles.eventDetail}>
                   <span style={styles.detailLabel}>Date:</span>
                   <span>
-                    {formatDate(selectedEvent.startTime)} - {formatDate(selectedEvent.endTime)}
+                    {formatDate(selectedEvent.startTime)} -{" "}
+                    {formatDate(selectedEvent.endTime)}
                   </span>
                 </div>
                 <div style={styles.eventDetail}>
@@ -710,20 +784,28 @@ const OrganizerDashboard = () => {
                 <div style={styles.eventDetail}>
                   <span style={styles.detailLabel}>Participants:</span>
                   <span>
-                    {selectedEvent.participants.length}/{selectedEvent.participantLimit}
+                    {selectedEvent.participants.length}/
+                    {selectedEvent.participantLimit}
                   </span>
                 </div>
               </div>
-              
+
               <div style={{ flex: 1 }}>
                 <div style={styles.eventDetail}>
                   <span style={styles.detailLabel}>Status:</span>
-                  <span style={{
-                    color: selectedEvent.status === 'upcoming' ? '#3498db' : 
-                          selectedEvent.status === 'completed' ? '#7f8c8d' : '#2ecc71',
-                    fontWeight: 'bold'
-                  }}>
-                    {selectedEvent.status.charAt(0).toUpperCase() + selectedEvent.status.slice(1)}
+                  <span
+                    style={{
+                      color:
+                        selectedEvent.status === "upcoming"
+                          ? "#3498db"
+                          : selectedEvent.status === "completed"
+                          ? "#7f8c8d"
+                          : "#2ecc71",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {selectedEvent.status.charAt(0).toUpperCase() +
+                      selectedEvent.status.slice(1)}
                   </span>
                 </div>
                 <div style={styles.eventDetail}>
@@ -736,15 +818,21 @@ const OrganizerDashboard = () => {
                 </div>
               </div>
             </div>
-            
+
             <div style={styles.eventDetail}>
               <span style={styles.detailLabel}>Description:</span>
               <p>{selectedEvent.description}</p>
             </div>
-            
+
             <h3>Participants ({selectedEvent.participants.length})</h3>
-            <div style={{ maxHeight: '300px', overflowY: 'auto', marginTop: '10px' }}>
-              <table style={{ ...styles.table, width: '100%' }}>
+            <div
+              style={{
+                maxHeight: "300px",
+                overflowY: "auto",
+                marginTop: "10px",
+              }}
+            >
+              <table style={{ ...styles.table, width: "100%" }}>
                 <thead>
                   <tr>
                     <th style={styles.th}>Name</th>
@@ -754,7 +842,7 @@ const OrganizerDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedEvent.participants.map(participant => (
+                  {selectedEvent.participants.map((participant) => (
                     <tr key={participant.id}>
                       <td style={styles.td}>{participant.name}</td>
                       <td style={styles.td}>{participant.email}</td>
@@ -765,9 +853,9 @@ const OrganizerDashboard = () => {
                 </tbody>
               </table>
             </div>
-            
-            <button 
-              style={{ ...styles.button, marginTop: '20px' }}
+
+            <button
+              style={{ ...styles.button, marginTop: "20px" }}
               onClick={() => setSelectedEvent(null)}
             >
               Close
