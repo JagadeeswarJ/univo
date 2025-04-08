@@ -12,6 +12,12 @@ const Navbar = () => {
   // useEffect(() => {
   // }, []);
 
+  function handleSignout() {
+    localStorage.removeItem("userContext");
+    localStorage.removeItem("token");
+    context.setUser(null);
+    navigate("/login");
+  }
   console.log(context.user);
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-md">
@@ -75,10 +81,7 @@ const Navbar = () => {
             )}
             {context.user !== null && (
               <button
-                onClick={() => {
-                  navigate("/");
-                  window.location.reload();
-                }}
+                onClick={() => handleSignout()}
                 className="px-4 py-1.5 text-sm font-semibold bg-violet-700 text-white rounded-lg hover:bg-violet-800 transition duration-200 shadow-md"
               >
                 Sign out
