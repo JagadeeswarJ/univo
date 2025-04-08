@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useEffect } from "react";
 
 export const LoginContext = createContext({
   user: null,
@@ -7,7 +7,12 @@ export const LoginContext = createContext({
 
 const LoginProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  useEffect(() => {
+    const savedUser = localStorage.getItem("userContext");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
   return (
     <LoginContext.Provider value={{ user, setUser }}>
       {children}

@@ -1,5 +1,5 @@
 // src/AuthForm.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { t } from "../components/toast";
@@ -11,7 +11,9 @@ export const api = axios.create({
 
 export default function AuthForm() {
   const context = useContext(LoginContext);
-
+  useEffect(() => {
+    localStorage.setItem("userContext", JSON.stringify(context.user));
+  }, [context.user]);
   const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -32,6 +34,7 @@ export default function AuthForm() {
         // context.setUser(user); // Set user in context
         t("User Login Success");
         context.setUser(response.data.user); // Set user in context
+
         console.log(context.user);
         console.log("Login success:", response.data);
         localStorage.setItem("token", response.data.token);
