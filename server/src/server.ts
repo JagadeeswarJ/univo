@@ -16,8 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 //new routes
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
-app.use("/event",EventRoute);
-app.use("/payment",PaymentRoute);
+app.use("/event", EventRoute);
+app.use("/payment", PaymentRoute);
+app.use("/", (req, res) => {
+  res.send("Hello")
+});
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ success: false, message: err.message });
