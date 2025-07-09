@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import { env } from "./config/env";
 import registerRoute from "./routes/register.route";
 import loginRoute from "./routes/login.route";
 import EventRoute from "./routes/Event.route";
@@ -26,6 +25,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ success: false, message: err.message });
 });
 
-app.listen(env.PORT, () => {
-  console.log(`Server is running on port ${env.PORT}`);
-});
+export default app;
