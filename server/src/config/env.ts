@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
+import * as functions from "firebase-functions"
 dotenv.config();
 
 function getEnv(key: string, fallback = ""): string {
-  return process.env[key] ?? fallback;
+  return functions.config().env[key.toLowerCase()] ?? process.env[key];
 }
 
 const env = {
@@ -16,11 +17,13 @@ const env = {
   GAMIFICATIONS_COLLECTION: "gamifications",
   FEEDBACK_COLLECTION: "feedback",
 
-  // google cloud credentials for storage
   GOOGLE_CLOUD_PROJECT_ID: getEnv("GOOGLE_CLOUD_PROJECT_ID"),
   GOOGLE_CLOUD_PRIVATE_KEY: getEnv("GOOGLE_CLOUD_PRIVATE_KEY"),
   GOOGLE_CLOUD_CLIENT_EMAIL: getEnv("GOOGLE_CLOUD_CLIENT_EMAIL"),
-
+  NODEMAILER_USER: getEnv("NODEMAILER_USER"),
+  NODEMAILER_PASS: getEnv("NODEMAILER_PASS"),
+  RAZORPAY_KEY_ID: getEnv("RAZORPAY_KEY_ID"),
+  RAZORPAY_SECRET_KEY: getEnv("RAZORPAY_SECRET_KEY"),
   // more utily credentials
   JWT_SECRET: getEnv("JWT_SECRET"),
   JWT_EXPIRY: getEnv("JWT_EXPIRY"),
