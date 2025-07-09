@@ -68,3 +68,4 @@ Our goals:
 - Powered by **Firebase Auth** for secure login and session management
 
 ---
+
