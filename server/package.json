@@ -2,7 +2,7 @@
   "name": "univo-server",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "lib/index.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
