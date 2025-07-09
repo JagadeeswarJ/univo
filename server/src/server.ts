@@ -29,3 +29,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.listen(env.PORT, () => {
   console.log(`Server is running on port ${env.PORT}`);
 });
+
+export default app;
