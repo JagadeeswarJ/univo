@@ -41,8 +41,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const functions = __importStar(require("firebase-functions"));
 dotenv_1.default.config();
 function getEnv(key, fallback = "") {
-    var _a;
-    return (_a = functions.config().env[key.toLowerCase()]) !== null && _a !== void 0 ? _a : process.env[key];
+    return functions.config().env[key.toLowerCase()] ?? process.env[key];
 }
 const env = {
     PORT: getEnv("PORT", "8080"),

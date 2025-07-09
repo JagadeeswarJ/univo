@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.success = exports.register = void 0;
 const db_config_1 = require("../config/db.config");
@@ -19,7 +10,7 @@ function generateCompactTimestamp() {
     const random = Math.random().toString(36).substring(2, 6);
     return `rt_${timestamp}_${random}`;
 }
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const register = async (req, res) => {
     const { userId, eventId, amount } = req.body;
     if (!userId || !eventId || !amount) {
         res.status(400).json({ status: false, message: "Missing fields" });
@@ -33,7 +24,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const registrations = db_config_1.db.collection("registrations");
         try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            razorpay_config_1.razorpay.orders.create(options, (err, order) => __awaiter(void 0, void 0, void 0, function* () {
+            razorpay_config_1.razorpay.orders.create(options, async (err, order) => {
                 if (err) {
                     console.error(err);
                     res
@@ -49,7 +40,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     createdAt: new Date(),
                 };
                 try {
-                    yield registrations.add(docData);
+                    await registrations.add(docData);
                     res.status(201).json({
                         status: true,
                         order_id: order.id,
@@ -62,7 +53,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                         message: "Error saving registration",
                     });
                 }
-            }));
+            });
         }
         catch (err) {
             console.error(err);
@@ -72,9 +63,9 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
     }
-});
+};
 exports.register = register;
-const success = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const success = async (req, res) => {
     const { order_id, payment_id, payment_signature, userId } = req.body;
     console.log(order_id, payment_id, payment_signature);
     if (!order_id || !payment_id || !payment_signature) {
@@ -93,7 +84,7 @@ const success = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             const registrations = db_config_1.db.collection("registrations");
             try {
-                const snapshot = yield registrations.where("order_id", "==", order_id).get();
+                const snapshot = await registrations.where("order_id", "==", order_id).get();
                 if (snapshot.empty) {
                     res.status(404).json({
                         status: false,
@@ -104,12 +95,12 @@ const success = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     const doc = snapshot.docs[0];
                     const regId = doc.id;
                     const registrationData = doc.data();
-                    yield registrations.doc(regId).update({
+                    await registrations.doc(regId).update({
                         payment_status: true,
                         payment_id: req.body.payment_id,
                     });
                     // const userData = await db.collection("users").where("userId", "==", userId).get();
-                    yield (0, mailer_service_1.mailer)("sparkscj110@gmail.com", payment_id, "Jagadeeswar", registrationData.amount);
+                    await (0, mailer_service_1.mailer)("sparkscj110@gmail.com", payment_id, "Jagadeeswar", registrationData.amount);
                     res.status(200).json({
                         status: true,
                         message: "Payment verified and registration updated.",
@@ -126,5 +117,5 @@ const success = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
     }
-});
+};
 exports.success = success;
