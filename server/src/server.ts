@@ -18,7 +18,7 @@ app.use("/event", EventRoute);
 app.use("/payment", PaymentRoute);
 //new routes
 app.use("/", (req, res) => {
-  res.send("Univo Server")
+  res.send("Univo Server v2")
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
