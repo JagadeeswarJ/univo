@@ -14,10 +14,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //new routes
+app.use("/", (req, res) => {
+  console.log("you have reached Univo Server");
+  res.send("Hello 123")
+});
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
-app.use("/event",EventRoute);
-app.use("/payment",PaymentRoute);
+app.use("/event", EventRoute);
+app.use("/payment", PaymentRoute);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ success: false, message: err.message });
