@@ -32,7 +32,7 @@
 
 import { setGlobalOptions } from "firebase-functions";
 import * as functions from "firebase-functions";
-import app from "../../src/server"; // Your express app
+import app from "./server"; // Your express app
 setGlobalOptions({ maxInstances: 10 });
 
 
