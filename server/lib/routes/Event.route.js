@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const event_controller_1 = require("../controllers/event.controller");
+const EventRoute = express_1.default.Router();
+EventRoute.get("/", event_controller_1.getAllEvents);
+EventRoute.get("/:eventId", event_controller_1.getEventDetails);
+EventRoute.post("/:eventId/feedback", event_controller_1.getEventDetails);
+EventRoute.post("/:eventId/register", event_controller_1.registerForEvent);
+EventRoute.post("/create", event_controller_1.createEvent);
+EventRoute.post("/:eventId/edit", event_controller_1.editEvent);
+EventRoute.delete("/:eventId/delete", event_controller_1.deleteEvent);
+EventRoute.get("/:eventId/users", event_controller_1.getRegisteredUsers);
+EventRoute.post("/:eventId/feedback", event_controller_1.addFeedback);
+EventRoute.get("/:eventId/feedback", event_controller_1.getFeedback);
+EventRoute.get("/organizer/:organizerId", event_controller_1.getEventByOrganizer);
+exports.default = EventRoute;

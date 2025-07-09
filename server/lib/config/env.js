@@ -1,0 +1,67 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.env = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+const functions = __importStar(require("firebase-functions"));
+dotenv_1.default.config();
+function getEnv(key, fallback = "") {
+    var _a;
+    return (_a = functions.config().env[key.toLowerCase()]) !== null && _a !== void 0 ? _a : process.env[key];
+}
+const env = {
+    PORT: getEnv("PORT", "8080"),
+    // firebase collections
+    USERS_COLLECTION: "users",
+    EVENTS_COLLECTION: "events",
+    REGISTRATIONS_COLLECTION: "registrations",
+    NOTIFICATION_COLLECTION: "notifications",
+    GAMIFICATIONS_COLLECTION: "gamifications",
+    FEEDBACK_COLLECTION: "feedback",
+    GOOGLE_CLOUD_PROJECT_ID: getEnv("GOOGLE_CLOUD_PROJECT_ID"),
+    GOOGLE_CLOUD_PRIVATE_KEY: getEnv("GOOGLE_CLOUD_PRIVATE_KEY"),
+    GOOGLE_CLOUD_CLIENT_EMAIL: getEnv("GOOGLE_CLOUD_CLIENT_EMAIL"),
+    NODEMAILER_USER: getEnv("NODEMAILER_USER"),
+    NODEMAILER_PASS: getEnv("NODEMAILER_PASS"),
+    RAZORPAY_KEY_ID: getEnv("RAZORPAY_KEY_ID"),
+    RAZORPAY_SECRET_KEY: getEnv("RAZORPAY_SECRET_KEY"),
+    // more utily credentials
+    JWT_SECRET: getEnv("JWT_SECRET"),
+    JWT_EXPIRY: getEnv("JWT_EXPIRY"),
+};
+exports.env = env;
