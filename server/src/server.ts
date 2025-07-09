@@ -24,9 +24,9 @@ app.use("/", (req, res) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ success: false, message: err.message });
 });
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`🔧 Local server running at http://localhost:${PORT}`);
-  });
-}
+// if (require.main === module) {
+//   app.listen(PORT, () => {
+//     console.log(`🔧 Local server running at http://localhost:${PORT}`);
+//   });
+// }
 export default app;

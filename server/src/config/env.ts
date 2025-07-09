@@ -7,8 +7,6 @@ function getEnv(key: string, fallback = ""): string {
 }
 
 const env = {
-  PORT: getEnv("PORT", "8080"),
-
   // firebase collections
   USERS_COLLECTION: "users",
   EVENTS_COLLECTION: "events",

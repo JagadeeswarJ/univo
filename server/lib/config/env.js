@@ -44,7 +44,6 @@ function getEnv(key, fallback = "") {
     return functions.config().env[key.toLowerCase()] ?? process.env[key];
 }
 const env = {
-    PORT: getEnv("PORT", "8080"),
     // firebase collections
     USERS_COLLECTION: "users",
     EVENTS_COLLECTION: "events",

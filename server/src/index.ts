@@ -31,9 +31,16 @@
 // });
 
 import { setGlobalOptions } from "firebase-functions";
-import * as functions from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
 import app from "./server"; // Your express app
 setGlobalOptions({ maxInstances: 10 });
 
 
-exports.api = functions.https.onRequest(app);
+export const api = onRequest(
+    {
+        region: "us-central1",
+        timeoutSeconds: 60,
+        memory: "512MiB",
+    },
+    app
+);
