@@ -16,7 +16,7 @@ export async function adminRegistrationMailer(
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Registration</title>
+  <title>UNIVO – New Registration</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     body { margin:0; padding:0; background:#f4f6fa; font-family:'Outfit',sans-serif; color:#1c1c1c; }
@@ -98,7 +98,7 @@ export async function mailer(
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment Confirmation</title>
+  <title>UNIVO – Payment Confirmation</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -167,7 +167,7 @@ export async function mailer(
       <p>Your payment has been successfully received. Please find your transaction details below:</p>
       <p><strong>🧾 Payment ID:</strong> <span class="highlight">${payment_id}</span></p>
       <p><strong>💰 Amount Paid:</strong> <span class="highlight">₹${amount}</span></p>
-      <p>We’re thrilled to have you with us. Stay tuned for more updates on our official website: <a href="https://www.univo.in" target="_blank">univo.in</a></p>
+      <p>We’re thrilled to have you with us. Stay tuned for more updates on our official website: <a href="https://univo-hazel.vercel.app/" target="_blank">https://univo-hazel.vercel.app/</a></p>
     </div>
     <div class="footer">
       &copy; 2024 UNIVO Event Registration. All Rights Reserved.
