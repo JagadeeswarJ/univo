@@ -1,22 +1,25 @@
-import axios from "axios";
+import api from "./api";
 const razorpay_key = import.meta.env.VITE_RAZORPAY_KEY_ID;
-const server_url = import.meta.env.VITE_BACKEND_URL;
 
-export default async function paymentHandler(paymentData, navigate, context) {
+const loadRazorpayScript = () => {
+  return new Promise((resolve, reject) => {
+    if (window.Razorpay) {
+      resolve(window.Razorpay);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(window.Razorpay);
+    script.onerror = () => reject(new Error("Failed to load Razorpay script"));
+    document.head.appendChild(script);
+  });
+};
+
+export default async function paymentHandler(paymentData, navigate, setLoading) {
   try {
-    await axios
-      .post(
-        `${server_url}/payment/register`,
-        {
-          ...paymentData,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
+    await api
+      .post("/payment/register", { ...paymentData })
+      .then(async (res) => {
         if (res.data.status) {
           // for register route, which saves data in database
           var razorpayOptions = {
@@ -30,53 +33,35 @@ export default async function paymentHandler(paymentData, navigate, context) {
             order_id: res.data.order_id,
             handler: async function (response) {
               try {
-                axios
-                  .post(
-                    `${server_url}/payment/success`,
-                    {
-                      response: response,
-                      order_id: response.razorpay_order_id,
-                      payment_id: response.razorpay_payment_id,
-                      payment_signature: response.razorpay_signature,
-                      userId: paymentData.userId,
-                    },
-                    {
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    }
-                  )
-                  .then((res) => {
-                    if (res.data.status) {
-                      navigate("/success", {
-                        state: { data: response, success: true },
-                      });
-                    } else {
-                      navigate("/failure", {
-                        state: {
-                          error:
-                            "Error in backend, if you receive confirmation mail don't worry you data has been updated..",
-                        },
-                      });
-                    }
-                  })
-                  .catch((err) => {
-                    console.error(err);
-                    navigate("/failure", {
-                      state: { error: "Payment confirmation failed" },
-                    });
+                const res = await api.post("/payment/success", {
+                  response: response,
+                  order_id: response.razorpay_order_id,
+                  payment_id: response.razorpay_payment_id,
+                  payment_signature: response.razorpay_signature,
+                  userId: paymentData.userId,
+                });
+                if (res.data.status) {
+                  navigate("/success", {
+                    state: { data: response, success: true },
                   });
-                console.log("Sucess Trigerred");
-                navigate("/success");
+                } else {
+                  navigate("/failure", {
+                    state: {
+                      error: "Error in backend, if you receive confirmation mail don't worry your data has been updated.",
+                    },
+                  });
+                }
               } catch (err) {
                 console.error(err);
+                navigate("/failure", {
+                  state: { error: "Payment confirmation failed" },
+                });
               } finally {
-                context.setLoading(false);
+                setLoading(false);
               }
             },
           };
-          // eslint-disable-next-line no-undef
-
+          const Razorpay = await loadRazorpayScript();
           var rzp1 = new Razorpay(razorpayOptions);
 
           rzp1.on("payment.failed", function (response) {

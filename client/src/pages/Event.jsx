@@ -16,10 +16,12 @@ const Event = () => {
   const navigate = useNavigate();
   const context = useContext(LoginContext);
 
+  const [paying, setPaying] = useState(false);
+
   async function onPay(data) {
-    console.log(data);
     data.amount = Number(data.amount);
-    await paymentHandler(data, navigate, context);
+    setPaying(true);
+    await paymentHandler(data, navigate, setPaying);
   }
 
   // Initialize state
@@ -218,6 +220,12 @@ const Event = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      {paying && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white bg-opacity-90">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid mb-4"></div>
+          <p className="text-lg font-semibold text-gray-700">Confirming your payment...</p>
+        </div>
+      )}
       {/* Event Header - Mobile First */}
       <div className="mb-6 sm:mb-8">
         <img

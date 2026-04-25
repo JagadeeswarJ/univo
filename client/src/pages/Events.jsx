@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
   CalendarIcon,
   MapPinIcon,
@@ -11,8 +10,7 @@ import {
   XIcon,
 } from "lucide-react";
 import { t } from "../components/toast";
-
-const server_url = import.meta.env.VITE_BACKEND_URL;
+import api from "../services/api";
 
 const eventImages = [
   "https://magazinelondon.co.uk/wp-content/uploads/2023/10/JA-MAGAZINE-BTF23-2212-2600x1500.jpg",
@@ -67,7 +65,7 @@ export default function EventLandingPage() {
     const fetchEvents = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${server_url}/event`);
+        const response = await api.get("/event");
 
         // Check if response has data property and it's an array
         if (

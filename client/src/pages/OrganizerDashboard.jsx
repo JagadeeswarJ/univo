@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
 import profile from "../assets/team4.jpg";
 import {useForm} from "react-hook-form";
-import axios from "axios";
+import api from "../services/api";
 
 // Detailed mock organizer profile
 const organizerProfile = {
@@ -198,7 +198,6 @@ const OrganizerDashboard = () => {
     prizes: "",
     contactPerson: "",
   });
-  const server_url = import.meta.env.VITE_BACKEND_URL;
   const handleCreateEvent = async (formData) => {
     try {
       // Map the frontend form fields to the backend API expected fields
@@ -220,7 +219,7 @@ const OrganizerDashboard = () => {
       };
       
       // Use the correct endpoint URL
-      const response = await axios.post("http://localhost:3000/event/create", newEventData);
+      const response = await api.post("/event/create", newEventData);
       
       if (response.data && response.data.success) {
         // Add the newly created event to the state

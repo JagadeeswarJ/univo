@@ -1,13 +1,9 @@
 // src/AuthForm.jsx
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { t } from "../components/toast";
 import { LoginContext } from "../context/LoginContext";
-
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || "localhost:3000",
-});
+import api from "../services/api";
 
 export default function AuthForm() {
   const context = useContext(LoginContext);

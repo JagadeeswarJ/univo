@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../config/db.config";
 import { razorpay } from "../config/razorpay.config";
-import { mailer } from "../services/mailer.service";
+import { mailer, adminRegistrationMailer } from "../services/mailer.service";
 import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils";
 
 interface PaymentRegisterBody {
@@ -130,13 +130,28 @@ export const success = async (
             payment_status: true,
             payment_id: req.body.payment_id,
           });
-          // const userData = await db.collection("users").where("userId", "==", userId).get();
-          await mailer(
-            "sparkscj110@gmail.com",
-            payment_id,
-            "Jagadeeswar",
-            registrationData.amount
-          );
+
+          const userDoc = await db.collection("users").doc(userId).get();
+          const userData = userDoc.data() ?? {};
+
+          const eventDoc = await db.collection("events").doc(registrationData.eventId).get();
+          const eventData = eventDoc.data() ?? {};
+
+          await Promise.all([
+            mailer(
+              userData.email ?? userId,
+              payment_id,
+              userData.fullName ?? userId,
+              registrationData.amount
+            ),
+            adminRegistrationMailer(
+              { ...userData, username: userId },
+              eventData,
+              payment_id,
+              order_id,
+              registrationData.amount
+            ),
+          ]);
           res.status(200).json({
             status: true,
             message: "Payment verified and registration updated.",
