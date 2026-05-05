@@ -26,11 +26,12 @@
     "razorpay": "^2.9.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
-    "uuid": "^11.1.0"
+    "uuid": "^14.0.0"
   },
   "overrides": {
     "tar": ">=7.5.11",
-    "@tootallnate/once": "3.0.1"
+    "@tootallnate/once": "3.0.1",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
